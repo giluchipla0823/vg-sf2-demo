@@ -1,0 +1,63 @@
+security:
+    encoders:
+#        Symfony\Component\Security\Core\User\User: plaintext
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 4
+
+#    role_hierarchy:
+#        ROLE_ADMIN: ROLE_USER
+#
+#    providers:
+#        in_memory:
+#            memory:
+#                users:
+#                    user:  { password: password, roles: [ 'ROLE_USER' ] }
+#                    admin: { password: password, roles: [ 'ROLE_ADMIN' ] }
+
+    providers:
+        our_db_provider:
+            entity:
+                class: AppBundle:User
+                property: email
+        in_memory:
+            memory: ~
+
+    firewalls:
+        dev:
+            pattern:  ^/api/(_(profiler|wdt|doc))/
+            security: false
+
+        login:
+            pattern:  ^/api/login
+            stateless: true
+            anonymous: true
+            provider: our_db_provider
+            form_login:
+                check_path: /api/login_check
+                require_previous_session: false
+                username_parameter: username
+                password_parameter: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+#        api:
+#            pattern:   ^/api
+#            stateless: true
+#            lexik_jwt:
+#                authorization_header:
+#                    enabled: true
+#                    prefix:  Bearer
+#                query_parameter:
+#                    enabled: true
+#                    name:    bearer
+        api:
+            pattern:   ^/api
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
+    access_control:
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

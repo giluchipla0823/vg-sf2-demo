@@ -1,0 +1,9 @@
+# Alias linux
+
+alias cache-permisos='chmod -R 777 /var/www/html/cache/dev/app-sf2/cache/'
+alias cache-clear='sudo rm -Rf /var/www/html/cache/dev/app-sf2/cache/**;sudo rm -Rf /var/www/html/core/app/cache/**'
+
+# Repositorio de guía
+https://github.com/lexik/LexikJWTAuthenticationBundle
+
+https://github.com/konshensx16/symfony-todo-backend

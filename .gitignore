@@ -1,0 +1,17 @@
+.idea/
+.DS_Store
+vagrant/.vagrant
+cache/*
+core/web/bundles/
+core/app/bootstrap.php.cache
+core/app/cache/*
+core/app/config/parameters.yml
+core/app/logs/*
+core/app/var/sessions/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+!app/var/sessions/.gitkeep
+core/build/
+core/vendor/
+core/bin/
+core/composer.phar

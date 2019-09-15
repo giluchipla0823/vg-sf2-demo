@@ -1,0 +1,46 @@
+# Learn more about services, parameters and containers at
+# https://symfony.com/doc/current/service_container.html
+parameters:
+    #parameter_name: value
+
+services:
+    #service_name:
+    #    class: AppBundle\Directory\ClassName
+    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+  app_api.event.jwt_authentication_success_listener:
+    class: AppBundle\EventListener\JWTAuthenticationSuccessListener
+    arguments: ['%jwt_token_type%', '%jwt_cookie_name%']
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
+
+  app_api.event.jwt_created_listener:
+    class: AppBundle\EventListener\JWTCreatedListener
+    arguments: [ '@request_stack', '%lexik_jwt_authentication.token_ttl%' ]
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
+
+  app_api.event.jwt_decoded_listener:
+    class: AppBundle\EventListener\JWTDecodedListener
+    arguments: [ '@request_stack', '%jwt_cookie_name%', '@lexik_jwt_authentication.jwt_token_authenticator']
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onJWTDecoded }
+
+  app_api.event.jwt_expired_listener:
+    class: AppBundle\EventListener\JWTExpiredListener
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_expired, method: onJWTExpired }
+
+  app_api.event.jwt_invalid_listener:
+    class: AppBundle\EventListener\JWTInvalidListener
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_invalid, method: onJWTInvalid }
+
+  app_api.event.jwt_authentication_failure_listener:
+    class: AppBundle\EventListener\JWTAuthenticationFailureListener
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_failure, method: onAuthenticationFailureResponse }
+
+  app_api.event.jwt_notfound_listener:
+    class: AppBundle\EventListener\JWTNotFoundListener
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_not_found, method: onJWTNotFound }
