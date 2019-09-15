@@ -109,8 +109,8 @@ sudo chmod 777 /usr/local/bin/composer
 # composer global require "fxp/composer-asset-plugin:*"
 # composer install 
 
-cd /var/www/html/core/
-composer install
+#cd /var/www/html/core/
+#composer install
 
 echo "-- Setup databases --"
 mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; FLUSH PRIVILEGES;"
