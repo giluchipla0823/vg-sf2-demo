@@ -10,17 +10,14 @@ class JWTDecodedListener
 {
     private $_jwtCookieName;
     private $_requestStack;
-    private $_jwtTokenAuthenticator;
 
     public function __construct(
         RequestStack $requestStack,
-        $jwtCookieName,
-        $jwtTokenAuthenticator
+        $jwtCookieName
     )
     {
         $this->_requestStack = $requestStack;
         $this->_jwtCookieName = $jwtCookieName;
-        $this->_jwtTokenAuthenticator = $jwtTokenAuthenticator;
     }
 
     /**
