@@ -6,11 +6,6 @@ namespace AppBundle\EventListener;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-/**
- * JWTCreatedListener
- *
- * @author Nicolas Cabot <n.cabot@lexik.fr>
- */
 class JWTCreatedListener
 {
     private $_jwtTokenTTL;

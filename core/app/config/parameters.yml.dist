@@ -10,9 +10,11 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
-    jwt_private_key_path: '%kernel.root_dir%/var/jwt/private.pem' # required for token creation
-    jwt_public_key_path: '%kernel.root_dir%/var/jwt/public.pem'  # required for token verification
-    jwt_pass_phrase: 'chelsea' # required for token creation, usage of an environment variable is recommended
-    jwt_token_ttl: 3600
+    jwt_private_key_path: '%kernel.root_dir%/var/jwt/private.pem'
+    jwt_public_key_path: '%kernel.root_dir%/var/jwt/public.pem'
+    jwt_pass_phrase: chelsea
+    jwt_token_ttl: 120
     jwt_token_type: Bearer
     jwt_cookie_name: jwt
+
+    exception_debugger: false

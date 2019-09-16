@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Traits\ApiResponser;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
+    use ApiResponser;
+
     /**
      * @Route("/", name="homepage")
      */
@@ -23,32 +26,46 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/api/login_check")
+     * Iniciar sessión
+     *
+     * @Route("/api/login")
      * @Method({"POST"})
+     * @param Request $request
      */
-    public function loginCheckAction(Request $request)
+    public function loginAction(Request $request)
     {
-        
+
     }
 
     /**
+     * Cerrar sessión
+     *
      * @Route("/api/logout")
      * @Method({"GET"})
+     * @param Request $request
+     * @return JsonResponse
      */
     public function logoutAction(Request $request)
     {
-        $response = new JsonResponse(array('code' => Response::HTTP_OK, 'message' => 'logout action'), Response::HTTP_OK);
-        $response->headers->clearCookie("jwt");
+        $response = $this->showMessageResponse('Logout action');
+        $response->headers->clearCookie('jwt');
 
         return $response;
     }
 
     /**
+     * Mostrar pagina
+     *
      * @Route("/api/page")
      * @Method({"GET"})
+     * @param Request $request
+     * @return JsonResponse
      */
     public function pageAction(Request $request){
-        return new JsonResponse(array('code' => Response::HTTP_OK, 'message' => 'page action'), Response::HTTP_OK);
+
+        throw new \Exception('asacsccaca', 404);
+
+        return $this->showMessageResponse('page action');
     }
 
 

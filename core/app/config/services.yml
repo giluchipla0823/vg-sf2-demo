@@ -7,6 +7,17 @@ services:
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+
+  custom_exception.listener:
+    class: AppBundle\EventListener\ExceptionListener
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+  custom.security.authentication.listener.form:
+    class: AppBundle\EventListener\UsernamePasswordFormAuthenticationListener
+    parent: security.authentication.listener.abstract
+    abstract: true
+
   app_api.event.jwt_authentication_success_listener:
     class: AppBundle\EventListener\JWTAuthenticationSuccessListener
     arguments: ['%jwt_token_type%', '%jwt_cookie_name%']

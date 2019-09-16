@@ -34,7 +34,7 @@ security:
             anonymous: true
             provider: our_db_provider
             form_login:
-                check_path: /api/login_check
+                check_path: /api/login
                 require_previous_session: false
                 username_parameter: username
                 password_parameter: password
