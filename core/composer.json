@@ -16,7 +16,7 @@
         "php": ">=5.3.9",
         "doctrine/doctrine-bundle": "~1.4",
         "doctrine/orm": "^2.4.8",
-        "guzzlehttp/guzzle": "6.2.0",
+        "guzzlehttp/guzzle": "^6.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "lcobucci/jwt": "~3.2",
         "lexik/jwt-authentication-bundle": "v2.4",
