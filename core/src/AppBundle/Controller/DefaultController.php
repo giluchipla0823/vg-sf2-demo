@@ -49,6 +49,7 @@ class DefaultController extends Controller
     {
         $response = $this->showMessageResponse('Logout action');
         $response->headers->clearCookie('jwt');
+        $response->headers->clearCookie('REFRESH_TOKEN');
 
         return $response;
     }
@@ -63,7 +64,7 @@ class DefaultController extends Controller
      */
     public function pageAction(Request $request){
 
-        throw new \Exception('asacsccaca', 404);
+        // throw new \Exception('asacsccaca', 404);
 
         return $this->showMessageResponse('page action');
     }

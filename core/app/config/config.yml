@@ -90,3 +90,8 @@ lexik_jwt_authentication:
         cookie:
             enabled: true
             name: '%jwt_cookie_name%'
+
+gesdinet_jwt_refresh_token:
+    ttl: '%jwt_refresh_token_ttl%'
+#    firewall: api
+#    user_identity_field: email

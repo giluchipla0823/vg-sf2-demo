@@ -24,6 +24,12 @@ services:
     tags:
       - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
 
+  app_api.event.jwt_refresh_token:
+    class: AppBundle\EventListener\RefreshedTokenListener
+    arguments: ['%gesdinet_jwt_refresh_token.ttl%', '%jwt_refresh_cookie_name%']
+    tags:
+      - { name: kernel.event_subscriber }
+
   app_api.event.jwt_created_listener:
     class: AppBundle\EventListener\JWTCreatedListener
     arguments: [ '@request_stack', '%lexik_jwt_authentication.token_ttl%' ]
@@ -53,5 +59,6 @@ services:
 
   app_api.event.jwt_notfound_listener:
     class: AppBundle\EventListener\JWTNotFoundListener
+    arguments: ['@request_stack', '@event_dispatcher', '%jwt_refresh_cookie_name%']
     tags:
       - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_not_found, method: onJWTNotFound }

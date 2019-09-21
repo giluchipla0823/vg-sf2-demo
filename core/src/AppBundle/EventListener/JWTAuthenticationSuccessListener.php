@@ -55,29 +55,18 @@ class JWTAuthenticationSuccessListener
         $event->setData($data);
 
         $response = $event->getResponse();
-        $cookie = $this->_generateCookieToken($token, $expirationToken);
-        $response->headers->setCookie($cookie);
+
+        $response->headers->setCookie(
+            new Cookie(
+                $this->_jwtCookieName,
+                $this->_jwtTokenType . ' ' . $token,
+                $expirationToken,
+                '/',
+                NULL,
+                $this->_cookieSecure
+            )
+        );
 
         return $response;
     }
-
-    /**
-     * Generar cookie con el token obtenido
-     *
-     * @param $token
-     * @param $expirationToken
-     * @return Cookie
-     */
-    private function _generateCookieToken($token, $expirationToken){
-        return new Cookie(
-            $this->_jwtCookieName,
-            $this->_jwtTokenType . ' ' . $token,
-            $expirationToken,
-            '/',
-            NULL,
-            $this->_cookieSecure
-        );
-    }
-
-
 }

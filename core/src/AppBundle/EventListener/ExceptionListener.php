@@ -4,6 +4,7 @@ namespace AppBundle\EventListener;
 
 use AppBundle\Exceptions\ValidationException;
 use AppBundle\Helpers\AppHelper;
+use AppBundle\Helpers\JsonResponseHelper;
 use AppBundle\Traits\ApiResponser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -62,7 +63,7 @@ class ExceptionListener
         $message = $exception->getMessage();
         $errors = $exception->getErrors();
 
-        $response = $this->errorResponse($message, $code, array('errors' => $errors));
+        $response = $this->errorResponse($message, $code, array(JsonResponseHelper::IDX_JSON_ERRORS => $errors));
 
         return $event->setResponse($response);
     }
