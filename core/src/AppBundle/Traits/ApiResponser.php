@@ -32,7 +32,8 @@ Trait ApiResponser{
      */
     protected function showCollectionResponse($data, $code = Response::HTTP_OK){
         $data = $this->serializerCollection($data);
-        return $this->successResponse($data, $code);
+
+        return $this->successResponse($data);
     }
 
     /**
@@ -44,7 +45,8 @@ Trait ApiResponser{
      */
     protected function showInstanceResponse($data, $code = Response::HTTP_OK){
         $data = $this->serializerInstance($data);
-        return $this->successResponse($data, $code);
+
+        return $this->successResponse($data);
     }
 
     /**

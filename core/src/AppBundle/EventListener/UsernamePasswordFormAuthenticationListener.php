@@ -122,7 +122,5 @@ class UsernamePasswordFormAuthenticationListener extends AbstractAuthenticationL
             'username' => $username,
             'password' => $password
         ), $constraints);
-
-
     }
 }
