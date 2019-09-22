@@ -51,7 +51,7 @@ class JWTNotFoundListener
         }
 
         $response = $this->errorResponse(
-            Response::HTTP_FORBIDDEN . ' Forbidden: Missing token authentication'.
+            Response::HTTP_FORBIDDEN . ' Forbidden: Missing token authentication',
             Response::HTTP_FORBIDDEN
         );
 

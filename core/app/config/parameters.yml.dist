@@ -13,8 +13,9 @@ parameters:
     jwt_private_key_path: '%kernel.root_dir%/var/jwt/private.pem'
     jwt_public_key_path: '%kernel.root_dir%/var/jwt/public.pem'
     jwt_pass_phrase: chelsea
-    jwt_token_ttl: 120
+    jwt_token_ttl: 60
     jwt_token_type: Bearer
     jwt_cookie_name: jwt
-
+    jwt_refresh_token_ttl: 60
+    jwt_refresh_cookie_name: REFRESH_TOKEN
     exception_debugger: false

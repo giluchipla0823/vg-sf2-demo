@@ -7,3 +7,4 @@ alias cache-clear='sudo rm -Rf /var/www/html/cache/dev/app-sf2/cache/**;sudo rm 
 https://github.com/lexik/LexikJWTAuthenticationBundle
 
 https://github.com/konshensx16/symfony-todo-backend
+

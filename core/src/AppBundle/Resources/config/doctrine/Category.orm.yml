@@ -1,0 +1,53 @@
+AppBundle\Entity\Category:
+    type: entity
+    table: categories
+    repositoryClass: AppBundle\Repository\CategoryRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        description:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        active:
+            type: integer
+            nullable: false
+            options:
+                default: 1
+        createdAt:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+    oneToMany:
+        posts:
+            targetEntity: Post
+            fetch: LAZY
+            mappedBy: category
+            inversedBy: null
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

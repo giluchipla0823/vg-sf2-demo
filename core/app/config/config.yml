@@ -65,6 +65,27 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
+# Trabajar con nomenclatura camelCase
+jms_serializer:
+    handlers:
+        datetime:
+            default_format: 'd/m/Y H:i:s'
+    property_naming:
+        id: 'jms_serializer.identical_property_naming_strategy'
+    visitors:
+        xml:
+            format_output: '%kernel.debug%'
+        json:
+            options:
+                - JSON_PRETTY_PRINT
+                - JSON_UNESCAPED_SLASHES
+                - JSON_PRESERVE_ZERO_FRACTION
+#    default_context:
+#        serialization:
+#            serialize_null: true
+#        deserialization:
+#            serialize_null: true
+
 nelmio_cors:
     defaults:
         origin_regex: true
