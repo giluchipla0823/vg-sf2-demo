@@ -8,6 +8,16 @@ services:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
 
+#  app_persist_created_at_listener:
+#    class: AppBundle\EventListener\PersistCreatedAtListener
+#    tags:
+#      - { name: doctrine.event_subscriber }
+#
+#  app_persist_updated_at_listener:
+#    class: AppBundle\EventListener\PersistUpdatedAtListener
+#    tags:
+#      - { name: doctrine.event_subscriber }
+
   custom_exception.listener:
     class: AppBundle\EventListener\ExceptionListener
     tags:
