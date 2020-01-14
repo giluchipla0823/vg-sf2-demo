@@ -3,32 +3,30 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
-use AppBundle\Traits\ApiResponser;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Exceptions\ValidationException;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints as Assert;
 
-class CategoriesController extends Controller
+class CategoriesController extends ApiController
 {
-    use ApiResponser;
+
+    public function __construct()
+    {
+        parent::__construct(Category::class);
+    }
 
     /**
      * Lista de categorías
      *
-     * @Route("/api/categories")
-     * @Method({"GET"})
      * @param Request $request
      * @return JsonResponse
      */
     public function indexAction(Request $request)
     {
-        $queryParams = $request->query->all();
-
-        $repository = $this->getDoctrine()->getRepository(Category::class);
-        $categories = $repository->findAllWithFilters($queryParams);
+        $categories = $this->repository->findAll();
 
         return $this->showCollectionResponse($categories);
     }
@@ -36,31 +34,43 @@ class CategoriesController extends Controller
     /**
      * Obtener categoría por su id
      *
-     * @Route("/api/categories/{id}")
-     * @Method({"GET"})
      * @param Request $request
+     * @param int $id
      * @return JsonResponse
      */
     public function showAction(Request $request, $id){
-        $repository = $this->getDoctrine()->getRepository(Category::class);
-        $category = $repository->findOrFail($id);
+        $category = $this->repository->findOrFail($id);
 
         return $this->showInstanceResponse($category);
     }
 
     /**
-     * Registrar categporías
+     * Registro de categoría
      *
-     * @Route("/api/categories")
-     * @Method({"POST"})
      * @param Request $request
      * @return JsonResponse
+     * @throws ValidationException
      */
     public function storeAction(Request $request){
-        $repository = $this->getDoctrine()->getRepository(Category::class);
 
-        $repository->create($request->request->all());
+        $constraints = array(
+            'name' => array(
+                new Assert\NotBlank(),
+                new \AppBundle\Validator\Constraints\UniqueEntity(array(
+                    'fields' => array('name'),
+                    'entityClass' => Category::class
+                ))
+            )
+        );
+
+        $requestParams = $request->request->all();
+
+        $this->validateDataRequest($requestParams, $constraints);
+
+        $this->repository->create($requestParams);
 
         return $this->showMessageResponse('Category created successfully', Response::HTTP_CREATED);
     }
+
+
 }

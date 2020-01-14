@@ -8,6 +8,7 @@ use AppBundle\Helpers\JsonResponseHelper;
 use AppBundle\Traits\ApiResponser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Doctrine\DBAL\Exception\ConnectionException as DBALConnectionException;
 
 class ExceptionListener
 {
@@ -75,9 +76,8 @@ class ExceptionListener
      * @param DBALConnectionException $exception
      */
     public function getResponseDBALConnectionException(GetResponseForExceptionEvent $event, DBALConnectionException $exception){
-        $code = $exception->getCode();
-        $message = "Error {$code}: {$exception->getMessage()}";
+        $message = "Error {$exception->getErrorCode()}: {$exception->getMessage()}";
 
-        return $event->setResponse($this->errorResponse($message, $code));
+        return $event->setResponse($this->errorResponse($message, Response::HTTP_INTERNAL_SERVER_ERROR));
     }
 }

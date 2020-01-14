@@ -5,3 +5,21 @@ app:
 gesdinet_jwt_refresh_token:
     path:     /api/token/refresh
     defaults: { _controller: gesdinet.jwtrefreshtoken:refresh }
+
+# Rutas de categorias
+api_categories_index:
+    path: /api/categories
+    defaults: {_controller: AppBundle:Categories:index}
+    methods: [GET]
+
+api_categories_show:
+    path: /api/categories/{id}
+    defaults: {_controller: AppBundle:Categories:show}
+    methods: [GET]
+    requirements:
+        id: \d+
+
+api_categories_create:
+    path: /api/categories
+    defaults: {_controller: AppBundle:Categories:store}
+    methods: [POST]

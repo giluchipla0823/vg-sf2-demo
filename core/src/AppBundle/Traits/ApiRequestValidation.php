@@ -4,8 +4,8 @@ namespace AppBundle\Traits;
 
 use AppBundle\Exceptions\ValidationException;
 use AppBundle\Helpers\AppHelper;
+use AppBundle\Helpers\ArrayHelper;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 Trait ApiRequestValidation{
 
@@ -16,35 +16,16 @@ Trait ApiRequestValidation{
      * @param array $constraints
      * @throws ValidationException
      */
-    public function validateDataRequest(array $data, $constraints){
+    public function validateDataRequest(array $data, array $constraints){
         $container = AppHelper::getContainerBuilder();
         $validator = $container->get('validator');
+
+        $data = ArrayHelper::onlyItems($data, array_keys($constraints));
 
         $errors = $validator->validate($data, new Assert\Collection($constraints));
 
         if(count($errors) > 0){
             throw new ValidationException($errors);
         }
-    }
-
-    /**
-     * Aplicar formato a los errores de validación
-     *
-     * @param ConstraintViolationListInterface $errors
-     * @return array
-     */
-    public function transformValidatorErrors(ConstraintViolationListInterface $errors)
-    {
-        $response = array();
-
-        foreach ($errors as $error) {
-            $key = str_replace(array('[', ']'), '', $error->getPropertyPath());
-            $response[] = array(
-              'field' => $key,
-              'message' => $error->getMessage()
-            );
-        }
-
-        return $response;
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AppBundle\Repository;
 
 use AppBundle\Exceptions\EntityNotFoundException;

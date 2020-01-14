@@ -72,3 +72,18 @@ services:
     arguments: ['@request_stack', '@event_dispatcher', '%jwt_refresh_cookie_name%']
     tags:
       - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_not_found, method: onJWTNotFound }
+
+#  api_controller:
+#    class: AppBundle\Controller\ApiController
+#    arguments: ['@doctrine']
+
+#  api_categories_controller:
+#    public: true
+#    class: AppBundle\Controller\CategoriesController
+#    arguments: ['@doctrine']
+
+  app_unique_validator:
+    class: AppBundle\Validator\Constraints\UniqueEntityValidator
+    arguments: ['@doctrine']
+    tags:
+      - { name: validator.constraint_validator }

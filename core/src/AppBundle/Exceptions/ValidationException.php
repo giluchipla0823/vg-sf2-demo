@@ -3,15 +3,14 @@
 
 namespace AppBundle\Exceptions;
 
-use AppBundle\Traits\ApiRequestValidation;
 use Exception;
+use AppBundle\Helpers\ValidationHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Throwable;
 
 class ValidationException extends Exception
 {
-    use ApiRequestValidation;
 
     /**
      * Lista de errores
@@ -42,6 +41,6 @@ class ValidationException extends Exception
      * @param ConstraintViolationListInterface $errors
      */
     public function setErrors(ConstraintViolationListInterface $errors) {
-        $this->errors = $this->transformValidatorErrors($errors);
+        $this->errors = ValidationHelper::transformValidatorErrors($errors);
     }
 }

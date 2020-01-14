@@ -13,7 +13,7 @@ Vagrant.configure(options['vagrant_api_version']) do |config|
   config.vm.hostname = options['hostname']
   config.vm.define options['machine_name']
   config.vm.box_check_update = options['box_check_update']
-  config.vm.network "forwarded_port", guest: 3306, host: 3309
+  config.vm.network "forwarded_port", guest: 3306, host: 3308
   config.vm.network options['network'], ip: options['ip']  
   # config.vm.provision :hostmanager
   # config.hostmanager.enabled            = true
